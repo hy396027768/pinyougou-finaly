@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动补全</title>
+    <link rel="stylesheet" href="css/angucomplete.css">
+    <script src="plugins/angularjs/angular.min.js"></script>
+    <script src="plugins/angularjs/angucomplete.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/service/addressService.js"></script>
+    <script src="js/controller/addressController.js"></script>
+
+</head>
+<script>
+
+
+</script>
+<body ng-app="pinyougou" ng-controller="addressController">
+
+<div angucomplete id="ex1"
+              placeholder="搜索"
+              pause="100"
+              selectedobject="selectedContacts"
+              localdata="contactList"
+              searchfields="contactName"
+              titlefield="contactName"
+              minlength="1"
+              inputclass="form-control"
+     matchclass="highlight"></div>
+</body>
+</html>

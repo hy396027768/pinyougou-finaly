@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户统计</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+
+    <!--引入angularJS-->
+    <script src="../plugins/angularjs/angular.min.js"></script>
+
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+    <script src="../js/base_pagination.js"></script>
+    <script src="../js/service/userService.js"></script>
+    <script src="../js/controller/baseController.js"></script>
+    <script src="../js/controller/userController.js"></script>
+
+
+
+</head>
+
+<body ng-app="pinyougou" ng-controller="userController" ng-init="basic()"
+      class="hold-transition skin-red sidebar-mini">
+<!-- .box-body -->
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 id="myModalLabel">用户统计</h4>
+    </div>
+
+
+
+
+
+    <!--{{basicMap}}-->
+
+    <div class="modal-header">
+        <h5><span>用户总数:{{count}}</span></h5>
+    </div>
+    <div class="modal-body">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab">会员等级</a></li>
+            <li><a href="#linkman" ng-click="sexStatistics()" data-toggle="tab">性别</a></li>
+            <li><a href="#certificate" data-toggle="tab">状态</a></li>
+            <!--<li><a href="#ceo" data-toggle="tab">消费额度</a></li>-->
+            <!--<li><a href="#bank" data-toggle="tab">用户等级</a></li>-->
+        </ul>
+
+        <!-- 选项卡开始 -->
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane active in" id="home">
+                <br>
+
+                <table class="table-bordered table-striped" width="90%" style="margin:0 auto;">
+                    <tr>
+                        <td>会员等级</td>
+                        <td>统计</td>
+                        <td>百分比</td>
+                    </tr>
+                    <tr ng-repeat="userLevel in userLevelList">
+                        <td>{{grade[userLevel.user_level]}}</td>
+                        <td>{{userLevel.calculate}}</td>
+                        <td>{{((userLevel.calculate/count)*100).toFixed(2)}}%</td>
+
+                    </tr>
+                </table>
+                <div id = "level" style="width: 600px;height: 400px;"></div>
+
+            </div>
+            <div class="tab-pane fade" id="linkman">
+                <br>
+                <table class="table-bordered table-striped" width="90%" style="margin:0 auto;">
+                    <tr>
+                        <td>性别</td>
+                        <td>统计</td>
+                        <td>百分比</td>
+                    </tr>
+                    <tr>
+                        <td>男</td>
+                        <td>{{sex1}}</td>
+                        <td>{{((sex1/count)*100).toFixed(2)}}%</td>
+                    </tr>
+                    <tr>
+                        <td>女</td>
+                        <td>{{sex2}}</td>
+                        <td>{{((sex2/count)*100).toFixed(2)}}%</td>
+
+                    </tr>
+                </table>
+
+                <div id = "sex" style="width: 600px;height: 400px;"></div>
+
+            </div>
+            <div class="tab-pane fade" id="certificate">
+                <br>
+                <table class="table-bordered table-striped" width="90%" style="margin:0 auto;">
+                    <tr>
+                        <td>状态</td>
+                        <td>统计</td>
+                        <td>百分比</td>
+                    </tr>
+                    <tr>
+                        <td>正常</td>
+                        <td>{{status1}}</td>
+                        <td>{{((status1/count)*100).toFixed(2)}}%</td>
+                    </tr>
+                    <tr>
+                        <td>已冻结</td>
+                        <td>{{status0}}</td>
+                        <td>{{((status0/count)*100).toFixed(2)}}%</td>
+
+                    </tr>
+                </table>
+
+                <div id = "status" style="width: 600px;height: 400px;"></div>
+
+
+            </div>
+
+        </div>
+        <!-- 选项卡结束 -->
+
+        <!--<table class="table table-bordered table-striped">-->
+            <!--<tr>-->
+                <!--<td>性别</td>-->
+                <!--<td>正常状态</td>-->
+                <!--<td>占用比率</td>-->
+                <!--<td>已冻结</td>-->
+                <!--<td>占用比率</td>-->
+
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>男</td>-->
+                <!--<td>{{sexMap.man1}}</td>-->
+                <!--<td>{{((sexMap.man1 / sexMap.count)*100).toFixed()}}%</td>-->
+                <!--<td>{{sexMap.man2}}</td>-->
+                <!--<td>{{((sexMap.man2 / sexMap.count)*100).toFixed()}}%</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>女</td>-->
+                <!--<td>{{sexMap.girl1}}</td>-->
+                <!--<td>{{((sexMap.girl1 / sexMap.count)*100).toFixed()}}%</td>-->
+                <!--<td>{{sexMap.girl2}}</td>-->
+                <!--<td>{{((sexMap.girl2 / sexMap.count)*100).toFixed()}}%</td>-->
+            <!--</tr>-->
+        <!--</table>-->
+
+    </div>
+
+
+
+</div>
+
+
+</body>
+
+</html>

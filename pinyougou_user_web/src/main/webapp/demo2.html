@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="plugins/angularjs/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <script src="js/controller/demo2.js"></script>
+
+</head>
+<body ng-controller="appController">
+<input name="OrgName" ng-model="modelPosition.OrgName" class="form-control " placeholder=""
+       type="text" ng-required="true" ng-pattern="/^[\u4e00-\u9fa5A-za-z0-9 ]{5,20}/" form-field-errormsg="{ pattern: '至少5个字符',}"
+       uib-typeahead="state for state in CompanyList | filter:$viewValue | limitTo:8"
+       ng-keyup="funcGetCompanyList($event)"
+       typeahead-on-select="funcGetCompanyDetail($item, $model, $label, $event)">
+</body>
+</html>

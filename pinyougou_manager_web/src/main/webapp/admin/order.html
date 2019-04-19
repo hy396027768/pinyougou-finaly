@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <title>待评价</title>
+    <!--<link rel="icon" href="/assets/img/favicon.ico">-->
+
+    <link rel="stylesheet" type="text/css" href="../css/webbase.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/pages-seckillOrder.css"/>
+
+    <script src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+    <script src="../js/base_pagination.js"></script>
+    <script src="../js/service/loginService.js"></script>
+    <script src="../js/service/orderService.js"></script>
+    <script src="../js/controller/baseController.js"></script>
+    <script src="../js/controller/queryController.js"></script>
+
+
+</head>
+
+<body ng-app="pinyougou" ng-controller="queryController" class="hold-transition skin-red sidebar-mini">
+
+<!--header-->
+<!--工具栏-->
+<div class="pull-left">
+    <div class="form-group form-inline">
+        <div class="btn-group">
+
+            <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                    class="fa fa-refresh"></i> 刷新
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="box-tools pull-right">
+    <div class="has-feedback">
+        店铺名称<input ng-model="order.nickName">   商家ID<input ng-model="order.sellerId">
+
+        <button class="btn btn-default" ng-click="order.name='';reloadList()">查询</button>
+
+    </div>
+</div>
+
+
+<div id="account">
+    <div class="py-container">
+        <div class="yui3-g home">
+            <!--右侧主内容-->
+            <div class="yui3-u-5-6 order-pay">
+                <div class="body">
+                    <div class="order-detail">
+                        <div class="orders" style="width: 900px" ng-repeat="entity in list">
+                            <!--order1-->
+                            <div class="choose-title">
+                                <label data-toggle="checkbox" class="checkbox-pretty ">
+                                    <input type="checkbox" checked="checked"><span>{{entity.createTime}}　订单编号：{{entity.orderId}}  店铺：{{entity.nickName}} <a>和我联系</a></span>
+                                </label>
+                            </div>
+                            <table class="sui-table table-bordered order-datatable">
+                                <tbody>
+                                <tr>
+                                    <td width="35%">
+                                        <div class="typographic"><img src="{{entity.picPath}}"/>
+                                            <a href="#" class="block-text">{{entity.title}}</a>
+                                            <span class="guige">规格：{{entity.spec}}</span>
+                                        </div>
+                                    </td>
+                                    <td width="5%" class="center">
+                                        <ul class="unstyled">
+                                            <li>单价¥{{entity.price}}</li>
+                                            <li>总价¥{{entity.totalFee}}</li>
+                                        </ul>
+                                    </td>
+                                    <td width="5%" class="center">1</td>
+                                    <td width="8%" class="center">
+                                        <ul class="unstyled">
+                                            <li><a>申请售后</a></li>
+                                        </ul>
+                                    </td>
+                                    <td width="10%" class="center">
+                                        <ul class="unstyled">
+                                            <li>¥{{entity.totalFee}}</li>
+                                            <li>（含运费：￥0.00）</li>
+                                        </ul>
+                                    </td>
+                                    <td width="10%" class="center">
+                                        <ul class="unstyled">
+                                            <li>交易成功</li>
+                                            <li><a href="orderDetail.html" class="btn">订单详情 </a></li>
+                                        </ul>
+                                    </td>
+                                    <td width="10%" class="center">
+                                        <ul class="unstyled">
+                                            <li><a href="#" class="sui-btn btn-info">评价</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!--<div class="choose-order">-->
+
+                        <!--<div class="sui-pagination pagination-large top-pages">-->
+                        <!--<ul>-->
+                        <!--<li class="prev disabled"><a href="#">«上一页</a></li>-->
+                        <!--<li class="active"><a href="#">1</a></li>-->
+                        <!--<li><a href="#">2</a></li>-->
+                        <!--<li><a href="#">3</a></li>-->
+                        <!--<li class="dotted"><span>...</span></li>-->
+                        <!--<li class="next"><a href="#">下一页»</a></li>-->
+                        <!--</ul>-->
+                        <!--<div><span>共10页&nbsp;</span><span>-->
+                        <!--到-->
+                        <!--<input type="text" class="page-num"><button class="page-confirm"-->
+                        <!--onclick="alert(1)">确定</button>-->
+                        <!--页</span></div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 底部栏位 -->
+<!-- 分页，paginationConf可以随便起个名字，主要是用于设置页面分页参数用的，要与$scope完成绑定 -->
+<tm-pagination conf="paginationConf"></tm-pagination>
+</body>
+
+</html>
